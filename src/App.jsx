@@ -1,10 +1,16 @@
-
+import Sidebar from "./components/sidebar";
+import HomePage from "./pages/HomePage";
 
 function App() {
-
-  return <div>
-    <h1 className="text-4xl text-red-600 font-bold">Hello Evana</h1>
-  </div>
+    return (
+        <div>
+            {/* Sidebar */}
+            <Sidebar />
+            
+            {/* Content */}
+            <HomePage />
+        </div>
+    );
 }
 
-export default App
+export default App;
