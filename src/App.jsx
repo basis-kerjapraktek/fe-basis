@@ -1,16 +1,18 @@
-import Sidebar from "./components/sidebar";
-import HomePage from "./pages/HomePage";
+// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+// import EmployeeRoutes from "./routes/employeeRoutes";
+// import AdminRoutes from "./routes/adminRoutes";
+// import SupervisorRoutes from "./routes/supervisorRoutes";
 
-function App() {
-    return (
-        <div>
-            {/* Sidebar */}
-            <Sidebar />
-            
-            {/* Content */}
-            <HomePage />
-        </div>
-    );
-}
+// function App() {
+//   return (
+//     <Router>
+//       <Routes>
+//         {EmployeeRoutes}
+//         {AdminRoutes}
+//         {SupervisorRoutes}
+//       </Routes>
+//     </Router>
+//   );
+// }
 
-export default App;
+// export default App;
