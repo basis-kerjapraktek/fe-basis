@@ -3,16 +3,16 @@
 // import AdminRoutes from "./routes/adminRoutes";
 // import SupervisorRoutes from "./routes/supervisorRoutes";
 
-// function App() {
-//   return (
-//     <Router>
-//       <Routes>
-//         {EmployeeRoutes}
-//         {AdminRoutes}
-//         {SupervisorRoutes}
-//       </Routes>
-//     </Router>
-//   );
-// }
+function App() {
+  return (
+    <Router>
+      <Routes>
+        {EmployeeRoutes}
+        {AdminRoutes}
+        {SupervisorRoutes}
+      </Routes>
+    </Router>
+  );
+}
 
-// export default App;
+export default App;
