@@ -1,15 +1,15 @@
-// import { Outlet } from "react-router-dom";
-// import Sidebar from "../components/employee/Sidebar";
+import { Outlet } from "react-router-dom";
+import Sidebar from "../components/employee/Sidebar";
 
-// function EmployeeLayout() {
-//   return (
-//     <div className="flex">
-//       <Sidebar />
-//       <div className="flex-grow p-4">
-//         <Outlet /> {/* Render halaman di dalam layout */}
-//       </div>
-//     </div>
-//   );
-// }
+function EmployeeLayouts() {
+  return (
+    <div className="flex">
+      <Sidebar /> {/* Sidebar karyawan */}
+      <div className="flex-grow p-4 bg-gray-100 min-h-screen">
+        <Outlet /> {/* Halaman utama */}
+      </div>
+    </div>
+  );
+}
 
-// export default EmployeeLayout;
+export default EmployeeLayouts;
