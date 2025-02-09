@@ -1,11 +1,11 @@
 import React from "react";
-import Layout from "../components/Layout";
+import AdminLayout from "../../layouts/AdminLayouts";
 
 const Notifikasi = () => {
   return (
-    <Layout>
+    <div>
       <p>Selamat datang di halaman beranda.</p>
-    </Layout>
+    </div>
   );
 };
 
