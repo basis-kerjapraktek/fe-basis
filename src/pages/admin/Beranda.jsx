@@ -1,11 +1,10 @@
 import React from "react";
-import Layout from "../components/Layout";
 
 const Beranda = () => {
   return (
-    <Layout>
+    <div>
       <p>Selamat datang di halaman beranda.</p>
-    </Layout>
+    </div>
   );
 };
 
