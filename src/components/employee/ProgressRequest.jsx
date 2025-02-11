@@ -1,10 +1,10 @@
 import React from "react";
 
-const ProgressBar = ({ step }) => {
+const ProgressRequest = ({ step }) => {
   const steps = [
     { number: 1, label: "Detail Barang" },
-    { number: 2, label: "Unggah Foto" },
-    { number: 3, label: "Konfirmasi Pengembalian" },
+    { number: 2, label: "Isi Formulir" },
+    { number: 3, label: "Konfirmasi Peminjaman" },
   ];
 
   return (
@@ -53,4 +53,4 @@ const ProgressBar = ({ step }) => {
   );
 };
 
-export default ProgressBar;
+export default ProgressRequest;

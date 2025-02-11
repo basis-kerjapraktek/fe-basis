@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import AdminRoutes from "./routes/AdminRoutes";
+// import AdminRoutes from "./routes/AdminRoutes";
 import EmployeeRoutes from "./routes/EmployeeRoutes";
 import Login from "./pages/auth/Login";
 import ProtectedRoute from "./components/protectedRoute";
@@ -10,10 +10,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
 
-        {/* Rute untuk admin */}
+        {/* Rute untuk admin
         <Route element={<ProtectedRoute />}>
           <Route path="/admin/*" element={<AdminRoutes />} />
-        </Route>
+        </Route> */}
 
         {/* Rute untuk employee */}
         <Route path="/*" element={<EmployeeRoutes />} />

@@ -1,12 +1,12 @@
-import React from "react";
-import AdminLayout from "../../layouts/AdminLayouts";
+// import React from "react";
+// import AdminLayout from "../../layouts/AdminLayouts";
 
-const Notifikasi = () => {
-  return (
-    <div>
-      <p>Selamat datang di halaman beranda.</p>
-    </div>
-  );
-};
+// const Notifikasi = () => {
+//   return (
+//     <div>
+//       <p>Selamat datang di halaman beranda.</p>
+//     </div>
+//   );
+// };
 
-export default Notifikasi;
+// export default Notifikasi;
