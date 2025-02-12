@@ -54,7 +54,7 @@ const RequestLoanStep2 = () => {
 
         {/* Keterangan Peminjaman (Outline Ungu) */}
         <div className="mt-4">
-          <label className="block text-gray-600 text-sm">Keterangan</label>
+          <label className="block text-gray-600 text-sm">Alasan Peminjaman</label>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}

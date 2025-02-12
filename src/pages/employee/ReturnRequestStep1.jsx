@@ -57,10 +57,17 @@ const ReturnRequestStep1 = () => {
       </div>
 
       {/* Tombol Navigasi */}
-      <div className="w-[890px] flex justify-end space-x-4 mt-4">
+      {/* Tombol Navigasi (Sejajar di Bawah Container) */}
+      <div className="w-[890px] flex justify-end space-x-4 mt-6">
         <button
-          onClick={() => navigate("/employee/ReturnRequestStep2")}
-          className="bg-purple-600 text-white px-4 py-2 rounded-md"
+          className="bg-gray-400 text-white px-6 py-2 rounded-md"
+          onClick={() => navigate("/employee/Detail")}
+        >
+          Kembali
+        </button>
+        <button
+          className="bg-purple-600 text-white px-6 py-2 rounded-md"
+          onClick={() => navigate("/employee/ReturnRequestStep3")}
         >
           Lanjut
         </button>

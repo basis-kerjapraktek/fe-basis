@@ -15,7 +15,7 @@ function App() {
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Route>
 
-        {/* Rute untuk employee */}
+        Rute untuk employee
         <Route path="/*" element={<EmployeeRoutes />} />
       </Routes>
     </Router>
