@@ -1,3 +1,5 @@
+Untuk menjalankan frontend ini menggunakan sintaks "npm run dev"
+
 # fe-basis
 
 # React + Vite
