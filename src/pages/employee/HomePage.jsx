@@ -1,58 +1,35 @@
 import React from "react";
+import { FaBox, FaUndo, FaExclamationTriangle } from "react-icons/fa"; // Import icon
 
 const HomePage = () => {
-  // Contoh data, bisa diganti dengan data dari backend nanti
-  const borrowedItems = [
-    { id: 1, name: "Laptop", dueDate: "2025-02-05" },
-    { id: 2, name: "Projector", dueDate: "2025-02-10" },
-  ];
-
-  const violations = 2; // Bisa diganti dari database nanti
-  let violationStatus = "bg-green-500";
-  let violationText = "Taat Aturan";
-
-  if (violations > 0 && violations < 3) {
-    violationStatus = "bg-yellow-500";
-    violationText = "Pelanggaran Ringan";
-  } else if (violations >= 3) {
-    violationStatus = "bg-red-500";
-    violationText = "Pelanggaran Berat";
-  }
-
   return (
-    <div className="p-4">
-      <h2 className="text-2xl font-bold mb-4">Halo, Herlina!</h2>
-      <p className="mb-4">Ajukan permohonan barang yang Anda butuhkan sekarang!</p>
-
-      {/* Kartu Informasi */}
-      <div className="grid grid-cols-3 gap-4">
-        <div className="p-4 bg-purple-200 rounded-lg shadow-md">
-          <h3 className="font-semibold">Barang Dipinjam</h3>
-          <p className="text-xl font-bold">{borrowedItems.length}</p>
-        </div>
-
-        <div className="p-4 bg-purple-300 rounded-lg shadow-md">
-          <h3 className="font-semibold">Pengembalian Terdekat</h3>
-          <p className="text-xl font-bold">{borrowedItems[0]?.dueDate}</p>
-        </div>
-
-        <div className={`p-4 rounded-lg shadow-md text-white ${violationStatus}`}>
-          <h3 className="font-semibold">Pelanggaran</h3>
-          <p className="text-xl font-bold">{violations}</p>
-          <p className="text-sm">{violationText}</p>
-        </div>
+    <div className="min-h-screen bg-[#F5F5FA] p-6">
+      {/* Statistik */}
+      <div className="grid grid-cols-3 gap-4 mt-6">
+        {[
+          { label: "Barang Dipinjam", count: 1, icon: <FaBox size={24} /> },
+          { label: "Pengembalian Terdekat", count: 1, icon: <FaUndo size={24} /> },
+          { label: "Pelanggaran", count: 1, icon: <FaExclamationTriangle size={24} /> },
+        ].map((item, index) => (
+          <div key={index} className="bg-[#6C47FF] text-white p-5 rounded-lg shadow-md flex items-center h-24">
+            <div className="mr-3">{item.icon}</div> {/* Icon di kiri */}
+            <div className="flex flex-col items-center w-full"> {/* Rata tengah */}
+              <span className="text-3xl font-bold">{item.count}</span> {/* Ukuran angka tetap besar */}
+              <p className="text-sm">{item.label}</p> {/* Ukuran teks lebih kecil */}
+            </div>
+          </div>
+        ))}
       </div>
 
-      {/* Daftar Barang yang Dipinjam */}
-      <h3 className="mt-6 text-lg font-semibold">Daftar Barang yang Dipinjam</h3>
-      <ul className="mt-2 border rounded-lg p-4 bg-gray-100">
-        {borrowedItems.map((item) => (
-          <li key={item.id} className="flex justify-between py-2 border-b last:border-none">
-            <span>{item.name}</span>
-            <span className="text-gray-600 text-sm">Due: {item.dueDate}</span>
-          </li>
-        ))}
-      </ul>
+      {/* Kartu Pelanggaran */}
+      <div className="mt-6">
+        <h2 className="text-lg font-semibold">Kartu Pelanggaran</h2>
+        <div className="bg-white p-4 rounded-md mt-2 shadow-md border border-gray-300">
+          <div className="bg-yellow-400 w-32 h-8  mb-2"></div> {/* Kolom merah lebih panjang */}
+          <p className="text-md text-Black-600 mt-1">Status: Pelanggar</p>
+          <p className="text-md text-gray-700 mt-1">Anda telah melakukan pelanggaran satu kali.</p>
+        </div>
+      </div>
     </div>
   );
 };

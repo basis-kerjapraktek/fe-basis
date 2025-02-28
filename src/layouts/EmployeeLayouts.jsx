@@ -1,15 +1,19 @@
 import { Outlet } from "react-router-dom";
 import Sidebar from "../components/employee/Sidebar";
+import Header from "../components/employee/Header";
 
-function EmployeeLayouts() {
+const EmployeeLayouts = () => {
   return (
     <div className="flex">
-      <Sidebar /> {/* Sidebar karyawan */}
-      <div className="flex-grow p-4 bg-gray-100 min-h-screen">
-        <Outlet /> {/* Halaman utama */}
+      <Sidebar /> 
+      <div className="flex-grow bg-gray-100 min-h-screen">
+        <Header /> 
+        <div className="p-4">
+          <Outlet />
+        </div>
       </div>
     </div>
   );
-}
+};
 
 export default EmployeeLayouts;

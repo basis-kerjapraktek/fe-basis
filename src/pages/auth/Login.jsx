@@ -40,7 +40,7 @@ export default function Login() {
         } else if (data.role === "Atasan") {
           navigate("/atasan");
         } else {
-          navigate("/dashboard");
+          navigate("/employee");
         }
       } else {
         setError(data.message || "Login gagal, periksa kembali data Anda.");

@@ -10,12 +10,12 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
 
-        {/* Rute untuk admin */}
+        Rute untuk admin
         <Route element={<ProtectedRoute />}>
           <Route path="/admin/*" element={<AdminRoutes />} />
         </Route>
 
-        {/* Rute untuk employee */}
+        Rute untuk employee
         <Route path="/*" element={<EmployeeRoutes />} />
       </Routes>
     </Router>
