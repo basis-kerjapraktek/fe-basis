@@ -8,7 +8,9 @@ import PeminjamanBarang from "../pages/admin/PeminjamanBarang";
 import PengembalianBarang from "../pages/admin/PengembalianBarang";
 import Profil from "../pages/admin/Profil";
 import Tanggapan from "../pages/admin/Tanggapan";
-import TambahBarang from "../pages/admin//screen/TambahBarang";
+import TambahBarang from "../pages/admin/screen/TambahBarang";
+import CetakLaporan from "../pages/admin/screen/CetakLaporan";
+import EditBarang from "../pages/admin/screen/EditBarang";
 
 const AdminRoutes = () => {
   return (
@@ -17,7 +19,9 @@ const AdminRoutes = () => {
     <Route index element={<Beranda />} />
     <Route path="kelola-barang" element={<KelolaBarang />} />
     <Route path="kelola-barang/tambah-barang" element={<TambahBarang />} />
+    <Route path="kelola-barang/editbarang/:id" element={<EditBarang />} />
     <Route path="laporan" element={<Laporan />} />
+    <Route path="laporan/cetaklaporan" element={<CetakLaporan />} />
     <Route path="notifikasi" element={<Notifikasi />} />
     <Route path="peminjaman" element={<PeminjamanBarang />} />
     <Route path="pengembalian" element={<PengembalianBarang />} />

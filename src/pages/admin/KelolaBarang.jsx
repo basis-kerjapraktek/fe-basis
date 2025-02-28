@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { FaEdit, FaTrash, FaSearch, FaPlus, FaEye } from "react-icons/fa";
+import { useLocation } from "react-router-dom";
+import { FaEdit, FaTrash, FaSearch, FaPlus } from "react-icons/fa";
 import { Link, Outlet } from "react-router-dom";
 
 const KelolaBarang = () => {
+  const location = useLocation();
   const [barang, setBarang] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [loading, setLoading] = useState(true);
@@ -10,37 +12,68 @@ const KelolaBarang = () => {
   const itemsPerPage = 5;
 
   useEffect(() => {
-    fetch("http://localhost:3000/barang")
-      .then((res) => {
-        if (!res.ok) throw new Error(`HTTP error! Status: ${res.status}`);
-        return res.json();
-      })
-      .then((data) => {
-        setBarang(data);
-        setLoading(false);
-      })
-      .catch((error) => {
+    const fetchBarang = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/barang");
+        if (!response.ok) throw new Error("Gagal mengambil data barang");
+
+        const data = await response.json();
+        setBarang(
+          data.map((item) => ({
+            id: item.id,
+            kode: item.code,
+            nama: item.name,
+            jumlah: item.stock_quantity,
+            kondisi: item.item_condition,
+            status: item.status,
+            gambar: item.picture.startsWith("http")
+              ? item.picture
+              : `http://localhost:3000/uploads/${item.picture}`,
+          }))
+        );
+      } catch (error) {
         console.error("Gagal mengambil data barang:", error);
+        setBarang([]);
+      } finally {
         setLoading(false);
-      });
+      }
+    };
+
+    fetchBarang();
+    setCurrentPage(1);
   }, []);
 
+  const handleDelete = async (id) => {
+    if (window.confirm("Apakah yakin ingin menghapus barang ini?")) {
+      try {
+        const response = await fetch(`http://localhost:3000/barang/${id}`, {
+          method: "DELETE",
+        });
+
+        if (!response.ok) throw new Error("Gagal menghapus barang");
+
+        alert("Barang berhasil dihapus");
+        setBarang((prevBarang) => prevBarang.filter((item) => item.id !== id));
+      } catch (error) {
+        console.error("Gagal menghapus barang:", error);
+        alert("Gagal menghapus barang");
+      }
+    }
+  };
+
   const filteredBarang = barang.filter((item) =>
-    item.nama_barang.toLowerCase().includes(searchTerm.toLowerCase())
+    item.nama?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = filteredBarang.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredBarang.length / itemsPerPage);
+  const currentItems = filteredBarang.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
-  const handleDelete = (id) => {
-    if (window.confirm("Apakah yakin ingin menghapus barang ini?")) {
-      fetch(`http://localhost:3000/barang/${id}`, { method: "DELETE" })
-        .then((response) => response.json())
-        .then(() => {
-          setBarang(barang.filter((item) => item.id !== id));
-        })
-        .catch((error) => console.error("Gagal menghapus barang:", error));
+  const goToPage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
     }
   };
 
@@ -57,7 +90,6 @@ const KelolaBarang = () => {
           />
           <FaSearch className="absolute left-3 top-3 text-gray-400" />
         </div>
-
         <Link to="tambah-barang">
           <button className="bg-purple-500 text-white px-4 py-2 rounded-lg flex items-center">
             <FaPlus className="mr-2" /> Tambah Barang
@@ -69,12 +101,9 @@ const KelolaBarang = () => {
         <table className="w-full text-left border-collapse">
           <thead>
             <tr className="bg-gray-200">
-              <th className="px-4 py-2">Nama Barang</th>
-              <th className="px-4 py-2">ID Barang</th>
-              <th className="px-4 py-2">Kondisi</th>
-              <th className="px-4 py-2">Jumlah</th>
-              <th className="px-4 py-2">Status</th>
-              <th className="px-4 py-2">Aksi</th>
+              {["Nama Barang", "ID Barang", "Kondisi", "Jumlah", "Status", "Aksi"].map((header) => (
+                <th key={header} className="px-4 py-2">{header}</th>
+              ))}
             </tr>
           </thead>
           <tbody>
@@ -90,20 +119,15 @@ const KelolaBarang = () => {
               currentItems.map((item) => (
                 <tr key={item.id} className="border-t">
                   <td className="px-4 py-2 flex items-center">
-                    <img src={item.gambar || "/laptop.png"} alt="barang" className="w-8 h-8 mr-2" />
-                    {item.nama_barang}
+                    <img src={item.gambar} alt="barang" className="w-8 h-8 mr-2" />
+                    {item.nama}
                   </td>
-                  <td className="px-4 py-2">{item.id_barang}</td>
+                  <td className="px-4 py-2">{item.kode}</td>
                   <td className="px-4 py-2">{item.kondisi}</td>
                   <td className="px-4 py-2">{item.jumlah}</td>
                   <td className="px-4 py-2">{item.status}</td>
                   <td className="px-4 py-2 flex space-x-2">
-                    <Link to={`/barang/${item.id}`}>
-                      <button className="bg-blue-500 text-white px-3 py-1 rounded">
-                        <FaEye />
-                      </button>
-                    </Link>
-                    <Link to={`/edit-barang/${item.id}`}>
+                    <Link to={`/admin/kelola-barang/editbarang/${item.id}`}>
                       <button className="bg-purple-500 text-white px-3 py-1 rounded">
                         <FaEdit />
                       </button>
@@ -122,36 +146,34 @@ const KelolaBarang = () => {
         </table>
       </div>
 
-      <div className="flex justify-between mt-4">
+      {/* Pagination */}
+      <div className="flex justify-center items-center mt-6 gap-2">
         <button
-          className="bg-gray-300 px-3 py-1 rounded"
-          onClick={() => setCurrentPage(currentPage - 1)}
+          onClick={() => goToPage(currentPage - 1)}
           disabled={currentPage === 1}
+          className="px-4 py-2 border rounded-lg bg-white text-purple-700 disabled:opacity-50"
         >
           Kembali
         </button>
-        <div className="flex space-x-2">
-          {Array.from({ length: Math.ceil(filteredBarang.length / itemsPerPage) }, (_, index) => (
-            <button
-              key={index + 1}
-              className={`px-3 py-1 rounded ${
-                currentPage === index + 1 ? "bg-purple-500 text-white" : "bg-gray-300"
-              }`}
-              onClick={() => setCurrentPage(index + 1)}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => goToPage(index + 1)}
+            className={`px-4 py-2 border rounded-lg ${currentPage === index + 1 ? 'bg-[#5D50BC] text-white' : 'bg-white text-purple-700'}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+
         <button
-          className="bg-gray-300 px-3 py-1 rounded"
-          onClick={() => setCurrentPage(currentPage + 1)}
-          disabled={currentPage === Math.ceil(filteredBarang.length / itemsPerPage)}
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className="px-4 py-2 border rounded-lg bg-white text-purple-700 disabled:opacity-50"
         >
           Lanjut
         </button>
       </div>
-
       <Outlet />
     </div>
   );
